@@ -1,0 +1,16 @@
+artifacts_root: artifacts
+
+data_ingestion:
+  root_dir: artifacts/data_ingestion
+  source_URL: https://drive.google.com/file/d/1eQ85QXNrASmgpdmql3Mj4LW_bzA-ba-Q/view?usp=sharing
+  local_data_file: artifacts/data_ingestion/data.zip
+  unzip_dir: artifacts/data_ingestion
+
+training:
+  root_dir: artifacts/training
+  trained_model_path: artifacts/training/model.h5
+
+model_evaluation:
+  mlflow_tracking_uri: https://dagshub.com/muzuvajoshua/SwahiliNewsClassifier.mlflow
+  mlflow_tracking_username: muzuvajoshua
+  mlflow_tracking_password: d96c53ff959b830daebf5fbb90c32cd5f669cce0
