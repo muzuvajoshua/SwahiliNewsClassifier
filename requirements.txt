@@ -25,4 +25,5 @@ hypothesis
 pytest
 mypy
 dagshub
+streamlit
 -e .

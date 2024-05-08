@@ -3,16 +3,18 @@ from swahiliNewsClassifier.utils.common import read_yaml, create_directories, sa
 from swahiliNewsClassifier.entity.config_entity import DataIngestionConfig
 import os
 
+
 class ConfigurationManager:
     """Class for managing configuration files and preparing base models.
-    
+
     This class handles the loading of configuration files and parameters,
     as well as the creation of directories necessary for preparing base models.
-    
+
     Attributes:
         config_filepath (str, optional): The filepath of the configuration file. Defaults to CONFIG_FILE_PATH.
         params_filepath (str, optional): The filepath of the parameters file. Defaults to PARAMS_FILE_PATH.
     """
+
     def __init__(
             self,
             config_filepath=CONFIG_FILE_PATH,
@@ -40,7 +42,7 @@ class ConfigurationManager:
         create_directories([config.root_dir])
         data_ingestion_config = DataIngestionConfig(
             root_dir=config.root_dir,
-           train_source_URL=config.train_source_URL,
+            train_source_URL=config.train_source_URL,
             test_source_URL=config.test_source_URL,
             train_data_file=config.train_data_file,
             test_data_file=config.test_data_file,

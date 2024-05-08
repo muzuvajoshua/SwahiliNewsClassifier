@@ -37,7 +37,10 @@ list_of_files = [
     "research/01_data_ingestion.ipynb",
     "research/02_model_training.ipynb",
     "research/03_model_evaluation.ipynb",
-    "templates/index.html"
+    "templates/index.html",
+    "app.py",
+    "lint.py",
+    ".env"
 
 ]
 
