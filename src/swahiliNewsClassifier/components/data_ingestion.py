@@ -17,28 +17,27 @@ class DataIngestion:
 
     def download_file(self):
         """Fetch data from a URL.
-
+        
         Raises:
             Exception: If an error occurs during the download process.
         """
         try:
-            dataset_url = self.config.source_URL
-            zip_download_dir = self.config.local_data_file
             os.makedirs("artifacts/data_ingestion", exist_ok=True)
+            dataset_urls = [self.config.train_source_URL, self.config.test_source_URL]
+            zip_download_dir =  [self.config.train_data_file, self.config.test_data_file]
+            for index in range(2):           
+            
+                logger.info(f"Downloading data from {dataset_urls[index]} into file {zip_download_dir[index]}")
 
-            logger.info(
-                f"Downloading data from {dataset_url} into file {zip_download_dir}")
+                file_id = dataset_urls[index].split("/")[-2]
+                prefix = "https://drive.google.com/uc?/export=download&id="
+                gdown.download(prefix + file_id, zip_download_dir[index])
 
-            file_id = dataset_url.split("/")[-2]
-            prefix = "https://drive.google.com/uc?/export=download&id="
-            gdown.download(prefix + file_id, zip_download_dir)
-
-            logger.info(
-                f"Downloaded data from {dataset_url} into file {zip_download_dir}")
+                logger.info(f"Downloaded data from {dataset_urls[index]} into file {zip_download_dir[index]}")
 
         except Exception as e:
             raise e
-
+        
     def extract_zip_file(self):
         """Extract a zip file.
 
@@ -48,16 +47,18 @@ class DataIngestion:
             Raises:
                 Exception: If an error occurs during the extraction process.
             """
-        try:
-            unzip_path = self.config.unzip_dir
-            os.makedirs(unzip_path, exist_ok=True)
+        zip_download_dir =  [self.config.train_data_file, self.config.test_data_file]
+        for index in range(2):
+            try:
+                unzip_path = self.config.unzip_dir
+                os.makedirs(unzip_path, exist_ok=True)
+                
+                with zipfile.ZipFile(zip_download_dir[index], "r") as zip_ref:
+                    zip_ref.extractall(unzip_path)
 
-            with zipfile.ZipFile(self.config.local_data_file, "r") as zip_ref:
-                zip_ref.extractall(unzip_path)
+                logger.info(f"Extracted zip file into: {unzip_path}")
 
-            logger.info(f"Extracted zip file into: {unzip_path}")
-
-        except Exception as e:
-            logger.error(
-                f"Error extracting zip file: {self.config.local_data_file}")
-            raise e
+            except Exception as e:
+                logger.error(f"Error extracting zip file: {zip_download_dir[index]}")
+                raise e
+            

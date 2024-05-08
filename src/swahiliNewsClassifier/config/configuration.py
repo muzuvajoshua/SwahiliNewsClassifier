@@ -40,8 +40,10 @@ class ConfigurationManager:
         create_directories([config.root_dir])
         data_ingestion_config = DataIngestionConfig(
             root_dir=config.root_dir,
-            source_URL=config.source_URL,
-            local_data_file=config.local_data_file,
+           train_source_URL=config.train_source_URL,
+            test_source_URL=config.test_source_URL,
+            train_data_file=config.train_data_file,
+            test_data_file=config.test_data_file,
             unzip_dir=config.unzip_dir
         )
         return data_ingestion_config
